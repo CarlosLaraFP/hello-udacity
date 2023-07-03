@@ -28,12 +28,18 @@ int main() {
   auto numbers = {6, 7, 8, 9};
 
   vector<vector<int>> board = {
+    {10, 1, 0, 0, 0, 0},
     {0, 1, 0, 0, 0, 0},
     {0, 1, 0, 0, 0, 0},
     {0, 1, 0, 0, 0, 0},
-    {0, 1, 0, 0, 0, 0},
-    {0, 0, 0, 0, 1, 0}
+    {0, 0, 0, 0, 1, 20}
  };
+
+ vector<int> &first = board.front();
+ vector<int> &last = board.back();
+
+ cout << "First element: " << first[0] << "\n";
+ cout << "Last element: " << last[last.size() - 1] << "\n";
 
  auto count = 0;
 
