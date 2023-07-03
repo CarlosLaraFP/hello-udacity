@@ -1,5 +1,4 @@
-*.dSYM
-hello.dSYM
-a.out
-.vscode/*
+hello.dSYM/
+.vscode/
+*.DS_Store
 settings.json
