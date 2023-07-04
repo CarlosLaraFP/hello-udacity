@@ -26,25 +26,41 @@
 #include <numeric>
 #include <type_traits>
 #include <fstream>
+#include <sstream>
 
 using std::cout;
-using std::string;
 using std::vector;
 using std::accumulate;
+using std::string;
+using std::ifstream;
+using std::istringstream;
+
 
 void PrintFileContents(const string& file_path) {
   /*
-    Alternatively, the declaration and initialization can be done in a single line: std::ifstream my_file(path);
   */
-  std::ifstream file;
-  file.open(file_path);
+  ifstream file(file_path);
+
   if (file) {
     cout << "Successfully read " << file_path << " into an input file stream object.\n";
+
     string line;
+    int n;
+    char c;
+
     while (getline(file, line)) {
-        cout << line << "\n";
+      istringstream stream(line);
+
+      // The extraction operator will read until whitespace is reached or until the stream fails
+      while (stream >> n >> c) {
+        cout << n << c;
+      }
+      cout << "\n";
     }
-  } 
+  }
+  else {
+    cout << "Path " << file_path << " does not exist or could not be found.\n";
+  }
 }
 
 template <typename T>

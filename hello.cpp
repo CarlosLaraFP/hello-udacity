@@ -154,4 +154,5 @@ int main() {
   }
 
   PrintFileContents("files/1.board");
+  PrintFileContents("files/2.board");
 }
