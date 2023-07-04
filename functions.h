@@ -32,7 +32,7 @@ using std::accumulate;
 
 
 template <typename T>
-void DisplayMatrix(vector<vector<T>> const &matrix) {
+void DisplayMatrix(const vector<vector<T>>& matrix) {
   /*
     Takes in a vector<vector<T>> prints its values in order.
     Iteration uses immutable references.
@@ -43,11 +43,10 @@ void DisplayMatrix(vector<vector<T>> const &matrix) {
     }
     cout << "\n";
   }
-  cout << "\n";
 }
 
 template <typename T>
-T Sum(const vector<T> &elements) {
+T Sum(const vector<T>& elements) {
   /*
     This function should, at a monimum, accept a vector of ints and return their sum.
     Enforces compile-time checking and ensures only numeric types are used.
@@ -62,7 +61,8 @@ T Sum(const vector<T> &elements) {
     In C++, the end() function returns an iterator to the "end" of the container, which is one past the last element, rather than the last element itself. 
     This follows a common idiom in C++ of specifying ranges as [first, last) — i.e., including the first element but excluding the last.
 
-    static_cast<T>(0): This is casting the integer 0 to the type T. The static_cast<T> is a compile-time cast that can perform conversions between types. It's needed here to ensure that the initial value has the correct type.
+    static_cast<T>(0): This is casting the integer 0 to the type T. The static_cast<T> is a compile-time cast that can perform conversions between types. 
+    It's needed here to ensure that the initial value has the correct type.
 
     For example, if you're accumulating a vector of double, you'd want the initial value to be a double (i.e., 0.0) and not an int (0), because using an 
     integer could potentially lead to integer (truncating) division instead of floating-point division when the accumulate function is performing its calculations.

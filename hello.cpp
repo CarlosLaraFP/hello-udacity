@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cassert>
 
 #include "functions.h"
 
@@ -135,5 +136,9 @@ int main() {
   DisplayMatrix(matrix);
 
   int result = Sum(fibonacci);
-  cout << result << "\n";
+  assert(result == 20);
+
+  vector<float> decimals = {1.1, 2.2, 3.3, 3.4};
+  float sum = Sum(decimals);
+  assert(sum == 10.0);
 }
