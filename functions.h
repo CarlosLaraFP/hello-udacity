@@ -36,31 +36,40 @@ using std::ifstream;
 using std::istringstream;
 
 
-void PrintFileContents(const string& file_path) {
+vector<int> ParseLine(const string& line) {
+  int n;
+  char c;
+  vector<int> elements;
+  istringstream stream(line);
+
+  // The extraction operator will read until whitespace is reached or until the stream fails
+  while (stream >> n >> c) {
+    elements.push_back(n);
+  }
+
+  return elements;
+}
+
+vector<vector<int>> ReadBoardContents(const string& file_path) {
   /*
+    Parse string lines from the board and store the ints in a vector using istringstream and push_back
   */
   ifstream file(file_path);
+  string line;
+  vector<vector<int>> board;
 
   if (file) {
     cout << "Successfully read " << file_path << " into an input file stream object.\n";
 
-    string line;
-    int n;
-    char c;
-
     while (getline(file, line)) {
-      istringstream stream(line);
-
-      // The extraction operator will read until whitespace is reached or until the stream fails
-      while (stream >> n >> c) {
-        cout << n << c;
-      }
-      cout << "\n";
+      board.push_back(ParseLine(line));
     }
   }
   else {
     cout << "Path " << file_path << " does not exist or could not be found.\n";
   }
+
+  return board;
 }
 
 template <typename T>

@@ -153,6 +153,14 @@ int main() {
     j++;
   }
 
-  PrintFileContents("files/1.board");
-  PrintFileContents("files/2.board");
+  assert(ReadBoardContents("files/2.board").size() == 0);
+
+  auto contents = ReadBoardContents("files/1.board");
+
+  for (const auto& v : contents) {
+    for (const int& i : v) {
+      cout << i << " ";
+    }
+    cout << "\n";
+  }
 }
