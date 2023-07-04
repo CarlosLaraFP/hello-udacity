@@ -28,6 +28,8 @@
 #include <fstream>
 #include <sstream>
 
+#include "enums.h"
+
 using std::cout;
 using std::vector;
 using std::accumulate;
@@ -36,33 +38,39 @@ using std::ifstream;
 using std::istringstream;
 
 
-vector<int> ParseLine(const string& line) {
+vector<TileState> ParseLine(const string& line) {
   int n;
   char c;
-  vector<int> elements;
+  vector<TileState> row;
   istringstream stream(line);
 
   // The extraction operator will read until whitespace is reached or until the stream fails
   while (stream >> n >> c) {
-    elements.push_back(n);
+    if (n == 0) {
+      row.push_back(TileState::Free);
+    }
+    else {
+      row.push_back(TileState::Blocked);
+    }
   }
 
-  return elements;
+  return row;
 }
 
-vector<vector<int>> ReadBoardContents(const string& file_path) {
+vector<vector<TileState>> ReadBoardFile(const string& file_path) {
   /*
     Parse string lines from the board and store the ints in a vector using istringstream and push_back
   */
   ifstream file(file_path);
-  string line;
-  vector<vector<int>> board;
+  vector<vector<TileState>> board;
 
   if (file) {
     cout << "Successfully read " << file_path << " into an input file stream object.\n";
+    string line;
 
     while (getline(file, line)) {
-      board.push_back(ParseLine(line));
+      auto row = ParseLine(line);
+      board.push_back(row);
     }
   }
   else {

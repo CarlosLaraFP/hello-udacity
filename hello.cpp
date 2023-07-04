@@ -12,10 +12,12 @@
 #include <cassert>
 
 #include "functions.h"
+#include "enums.h"
 
 using std::cout;
 using std::string;
 using std::vector;
+
 
 // g++ -std=c++17 hello.cpp -o hello
 int main() {
@@ -153,14 +155,29 @@ int main() {
     j++;
   }
 
-  assert(ReadBoardContents("files/2.board").size() == 0);
+  assert(ReadBoardFile("files/2.board").size() == 0);
 
-  auto contents = ReadBoardContents("files/1.board");
+  auto contents = ReadBoardFile("files/1.board");
 
-  for (const auto& v : contents) {
-    for (const int& i : v) {
-      cout << i << " ";
+  for (const auto& row : contents) {
+    for (const auto& tile : row) {
+      cout << TileToString(tile) << " ";
     }
     cout << "\n";
+  }
+
+  enum class Direction {kUp, kDown, kLeft, kRight};
+
+  Direction a = Direction::kUp;
+
+  switch (a) {
+    case Direction::kUp : cout << "Going up!" << "\n";
+      break;
+    case Direction::kDown : cout << "Going down!" << "\n";
+      break;
+    case Direction::kLeft : cout << "Going left!" << "\n";
+      break;
+    case Direction::kRight : cout << "Going right!" << "\n";
+      break;
   }
 }
