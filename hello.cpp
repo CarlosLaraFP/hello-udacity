@@ -156,15 +156,8 @@ int main() {
   }
 
   assert(ReadBoardFile("files/2.board").size() == 0);
-
   auto contents = ReadBoardFile("files/1.board");
-
-  for (const auto& row : contents) {
-    for (const auto& tile : row) {
-      cout << TileToString(tile) << " ";
-    }
-    cout << "\n";
-  }
+  DisplayBoard(contents);
 
   enum class Direction {kUp, kDown, kLeft, kRight};
 

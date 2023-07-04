@@ -80,6 +80,22 @@ vector<vector<TileState>> ReadBoardFile(const string& file_path) {
   return board;
 }
 
+string TileToString(const TileState& tile) {
+    switch (tile) {
+        case TileState::Blocked: return "⛰️";
+        default: return "0"; // TileState::Free
+    }
+}
+
+void DisplayBoard(const vector<vector<TileState>>& board) {
+  for (const auto& row : board) {
+    for (const auto& tile : row) {
+      cout << TileToString(tile) << " ";
+    }
+    cout << "\n";
+  }
+}
+
 template <typename T>
 void DisplayMatrix(const vector<vector<T>>& matrix) {
   /*
