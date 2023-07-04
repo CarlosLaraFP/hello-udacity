@@ -22,7 +22,7 @@ int main() {
   vector<string> colors{"Blue", "Green", "Red", "Silver"};
 
   // Iterating as immutable references
-  for (string const &color : colors) {
+  for (const string& color : colors) {
     cout << "Hello " << color << "!\n";
   }
 
@@ -39,11 +39,11 @@ int main() {
   auto numbers = {6, 7, 8, 9};
 
   vector<vector<int>> board = {
-    {10, 1, 0, 0, 0, 0},
     {0, 1, 0, 0, 0, 0},
     {0, 1, 0, 0, 0, 0},
     {0, 1, 0, 0, 0, 0},
-    {0, 0, 0, 0, 1, 20}
+    {0, 1, 0, 0, 0, 0},
+    {0, 0, 0, 0, 1, 0}
   };
 
   cout << "Random element: " << board[0][1] << "\n";
@@ -56,8 +56,8 @@ int main() {
 
   auto count = 0;
 
-  for (auto const &file : board) {
-    for (auto const &tile : file) {
+  for (const auto& file : board) {
+    for (const auto& tile : file) {
       count += 1;
     }
   }
@@ -121,7 +121,7 @@ int main() {
     data types (such as classes or structs) because it avoids unnecessary copying. 
     However, in your example, you're dealing with a vector of integers, so the efficiency difference would likely be negligible.
   */
-  for (int const &i : fibonacci) {
+  for (const int& i : fibonacci) {
     cout << i << " ";
   }
   cout << "\n";
@@ -141,4 +141,17 @@ int main() {
   vector<float> decimals = {1.1, 2.2, 3.3, 3.4};
   float sum = Sum(decimals);
   assert(sum == 10.0);
+
+  DisplayMatrix(board);
+
+  auto j = 1;
+
+  while (j <= 10) {
+    if (j % 2 == 0) {
+      cout << j << "\n";
+    }
+    j++;
+  }
+
+  PrintFileContents("files/1.board");
 }

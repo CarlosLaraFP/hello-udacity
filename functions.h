@@ -25,11 +25,27 @@
 #include <vector>
 #include <numeric>
 #include <type_traits>
+#include <fstream>
 
 using std::cout;
+using std::string;
 using std::vector;
 using std::accumulate;
 
+void PrintFileContents(const string& file_path) {
+  /*
+    Alternatively, the declaration and initialization can be done in a single line: std::ifstream my_file(path);
+  */
+  std::ifstream file;
+  file.open(file_path);
+  if (file) {
+    cout << "Successfully read " << file_path << " into an input file stream object.\n";
+    string line;
+    while (getline(file, line)) {
+        cout << line << "\n";
+    }
+  } 
+}
 
 template <typename T>
 void DisplayMatrix(const vector<vector<T>>& matrix) {
