@@ -101,10 +101,9 @@ int main() {
   }
   cout << "\n";
 
-  vector<int> range = {1, 1, 2, 3, 5, 8};
-
+  vector<int> fibonacci = {1, 1, 2, 3, 5, 8};
   /*
-    for (int i: range) {
+    for (int i: fibonacci) {
         cout << i << "\n";
     }
 
@@ -121,7 +120,7 @@ int main() {
     data types (such as classes or structs) because it avoids unnecessary copying. 
     However, in your example, you're dealing with a vector of integers, so the efficiency difference would likely be negligible.
   */
-  for (int const &i : range) {
+  for (int const &i : fibonacci) {
     cout << i << " ";
   }
   cout << "\n";
@@ -134,4 +133,7 @@ int main() {
   };
 
   DisplayMatrix(matrix);
+
+  int result = Sum(fibonacci);
+  cout << result << "\n";
 }
