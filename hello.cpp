@@ -33,21 +33,56 @@ int main() {
     {0, 1, 0, 0, 0, 0},
     {0, 1, 0, 0, 0, 0},
     {0, 0, 0, 0, 1, 20}
- };
+  };
 
- vector<int> &first = board.front();
- vector<int> &last = board.back();
+  cout << "Random element: " << board[0][1] << "\n";
 
- cout << "First element: " << first[0] << "\n";
- cout << "Last element: " << last[last.size() - 1] << "\n";
+  vector<int> &first = board.front();
+  vector<int> &last = board.back();
 
- auto count = 0;
+  cout << "First element: " << first[0] << "\n";
+  cout << "Last element: " << last[last.size() - 1] << "\n";
 
- for (auto const &file : board) {
-  for (auto const &tile : file) {
-    count += 1;
+  auto count = 0;
+
+  for (auto const &file : board) {
+    for (auto const &tile : file) {
+      count += 1;
+    }
   }
- }
 
- cout << "There are " << count << " tiles in the board.\n";
+  cout << "There are " << count << " tiles in the board.\n";
+
+  // Wow. Be careful.
+  //cout << "Invalid element: " << first[20] << "\n";
+
+  for (auto i = 0; i < 5; i++) {
+    cout << i << "\n";
+  }
+
+  auto i = 1;
+
+  // Post-increment assigns i to c and then increments i.
+  auto c = i++;
+
+  cout << "Post-increment example:" << "\n";
+  cout << "The value of c is: " << c << "\n";
+  cout << "The value of i is: " << i << "\n";
+  cout << "\n";
+
+  // Reset i to 1.
+  i = 1;
+
+  // Pre-increment increments i, then assigns to c.
+  c = ++i;
+
+  cout << "Pre-increment example:" << "\n";
+  cout << "The value of c is: " << c << "\n";
+  cout << "The value of i is: " << i << "\n";
+  cout << "\n";
+
+  // Decrement i;
+  i--;
+  cout << "Decrement example:" << "\n";
+  cout << "The value of i is: " << i << "\n";
 }
