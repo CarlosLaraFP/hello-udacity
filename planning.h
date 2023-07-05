@@ -23,13 +23,13 @@ using std::sort;
   Helper functions
 */
 
-int Heuristic(const int& x_1, const int& y_1, const int& x_2, const int& y_2) {
+int Heuristic(const Coordinate& a, const Coordinate& b) {
   /*
     The parameters represent two pairs of 2D coordinates.
     Returns an int which is the Manhattan Distance from one coordinate to the other:
     |x_2 - x_1| + |y_2 - y_1|
   */
-  return abs(x_2 - x_1) + abs(y_2 - y_1);
+  return abs(b.x - a.x) + abs(b.y - a.y);
 }
 
 void AddToOpen(const Node& node, vector<Node>& open_nodes, vector<vector<TileState>>& grid) {
@@ -38,7 +38,7 @@ void AddToOpen(const Node& node, vector<Node>& open_nodes, vector<vector<TileSta
     Modifies the mutable reference to the grid for the node just visited, marking it as closed.
   */
   open_nodes.push_back(node);
-  grid[node.x][node.y] = TileState::Closed;
+  grid[node.c.x][node.c.y] = TileState::Closed;
 }
 
 bool Compare(const Node& node_a, const Node& node_b) {
@@ -60,11 +60,41 @@ void CellSort(vector<Node>* v) {
   sort(v->begin(), v->end(), Compare);
 }
 
-void ExpandNeighbors() {
-
+bool CheckValidCell(const Coordinate& c, const vector<vector<TileState>>& grid) {
+    auto valid_row = c.x >= 0 && c.x < grid.size();
+    auto valid_column = c.y >= 0 && c.y < grid[0].size();
+    auto valid_tile = grid[c.x][c.y] == TileState::Free;
+    return valid_row && valid_column && valid_tile;
 }
 
-vector<vector<TileState>> Search(vector<vector<TileState>>& grid, const int start[2], const int goal[2]) {
+void ExpandNeighbors(const Node& current_node, vector<Node>& open_nodes, const vector<vector<TileState>>& grid, const Coordinate& goal) {
+  // directional deltas
+  const int delta [4][2] = {
+    {-1, 0}, 
+    {0, -1}, 
+    {1, 0}, 
+    {0, 1}
+  };
+
+  for (auto& d : delta) {
+    auto current_coordinate = Coordinate {
+      current_node.c.x + d[0], 
+      current_node.c.y + d[1]
+    };
+
+    if (CheckValidCell(current_coordinate, grid)) {
+      auto neighbor = Node {
+        current_coordinate,
+        current_node.g + 1,
+        Heuristic(current_coordinate, goal)
+      };
+
+      open_nodes.push_back(neighbor);
+    }
+  }
+}
+
+vector<vector<TileState>> Search(vector<vector<TileState>>& grid, const Coordinate& start, const Coordinate& goal) {
   /*
   */
   if (grid.empty()) {
@@ -74,16 +104,10 @@ vector<vector<TileState>> Search(vector<vector<TileState>>& grid, const int star
 
   vector<Node> open_nodes;
 
-  auto x_1 = start[0];
-  auto y_1 = start[1];
-  auto x_2 = goal[0];
-  auto y_2 = goal[1];
-
   auto first_node = Node {
-    x_1,
-    y_1,
+    start,
     0,
-    Heuristic(x_1, y_1, x_2, y_2)
+    Heuristic(start, goal)
   };
 
   AddToOpen(first_node, open_nodes, grid);
@@ -96,16 +120,26 @@ vector<vector<TileState>> Search(vector<vector<TileState>>& grid, const int star
     Node closest = open_nodes.back();
 
     // Mark the path for displaying it at the end
-    grid[closest.x][closest.y] = TileState::Path;
+    grid[closest.c.x][closest.c.y] = TileState::Path;
 
-    if (Heuristic(closest.x, closest.y, x_2, y_2) == 0) {
+    if (Heuristic(closest.c, goal) == 0) {
       return grid;
     }
 
-    ExpandNeighbors();
+    ExpandNeighbors(closest, open_nodes, grid, goal);
   }
 
   return grid;
 }
+
+/*
+  In A Tour of C++, Bjarne Stroustrup writes:
+
+  C++ supports two notions of immutability:
+
+  const: meaning roughly " I promise not to change this value."...The compiler enforces the promise made by const....
+
+  constexpr: meaning roughly "to be evaluated at compile time." This is used primarily to specify constants...
+*/
 
 #endif // PLANNING_H

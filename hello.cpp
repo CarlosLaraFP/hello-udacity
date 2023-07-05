@@ -22,6 +22,9 @@ using std::vector;
 
 // g++ -std=c++17 hello.cpp -o hello
 int main() {
+  /*
+    An array is a C++ container much like a vector, although without the ability to change size after initialization.
+  */
   vector<string> colors{"Blue", "Green", "Red", "Silver"};
 
   // Iterating as immutable references
@@ -171,6 +174,17 @@ int main() {
       break;
   }
 
+  int k;
+  std::cout << "Enter an integer value for k: ";
+  std::cin >> k;
+  const int p = k * 2;  // "p can only be evaluated at run time."
+                        // "But I promise not to change it after it is initialized."
+  
+  constexpr int n = 3;  // "n, in contrast, can be evaluated at compile time."
+  
+  std::cout << "p = " << p << "\n";
+  std::cout << "n = " << n << "\n";
+
   assert(ReadBoardFile("files/2.board").size() == 0);
 
   /*
@@ -179,9 +193,9 @@ int main() {
   auto board = ReadBoardFile("files/1.board");
   DisplayBoard(board);
 
-  int start [2] = {0, 0};
-  int goal [2] = {4, 5};
-  
+  auto start = Coordinate {0, 0};
+  auto goal = Coordinate {4, 5};
+
   auto solution = Search(board, start, goal);
 
   DisplayBoard(solution);

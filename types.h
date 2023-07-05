@@ -8,9 +8,13 @@ enum class TileState {
     Path
 };
 
-struct Node {
+struct Coordinate {
     int x;
     int y;
+};
+
+struct Node {
+    Coordinate c;
     int g;
     int h;
 };
