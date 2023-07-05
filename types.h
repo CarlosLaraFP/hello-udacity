@@ -4,7 +4,8 @@
 enum class TileState {
     Free, 
     Blocked,
-    Closed
+    Closed,
+    Path
 };
 
 struct Node {

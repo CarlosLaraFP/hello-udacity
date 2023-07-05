@@ -41,7 +41,7 @@ int main() {
 
   auto numbers = {6, 7, 8, 9};
 
-  vector<vector<int>> board = {
+  vector<vector<int>> grid = {
     {0, 1, 0, 0, 0, 0},
     {0, 1, 0, 0, 0, 0},
     {0, 1, 0, 0, 0, 0},
@@ -49,23 +49,23 @@ int main() {
     {0, 0, 0, 0, 1, 0}
   };
 
-  cout << "Random element: " << board[0][1] << "\n";
+  cout << "Random element: " << grid[0][1] << "\n";
 
-  vector<int> &first = board.front();
-  vector<int> &last = board.back();
+  vector<int> &first = grid.front();
+  vector<int> &last = grid.back();
 
   cout << "First element: " << first[0] << "\n";
   cout << "Last element: " << last[last.size() - 1] << "\n";
 
   auto count = 0;
 
-  for (const auto& file : board) {
+  for (const auto& file : grid) {
     for (const auto& tile : file) {
       count += 1;
     }
   }
 
-  cout << "There are " << count << " tiles in the board.\n";
+  cout << "There are " << count << " tiles in the grid.\n";
 
   // Wow. Be careful.
   //cout << "Invalid element: " << first[20] << "\n";
@@ -145,7 +145,7 @@ int main() {
   float sum = Sum(decimals);
   assert(sum == 10.0);
 
-  DisplayMatrix(board);
+  DisplayMatrix(grid);
 
   auto j = 1;
 
@@ -155,10 +155,6 @@ int main() {
     }
     j++;
   }
-
-  assert(ReadBoardFile("files/2.board").size() == 0);
-  auto contents = ReadBoardFile("files/1.board");
-  DisplayBoard(contents);
 
   enum class Direction {kUp, kDown, kLeft, kRight};
 
@@ -175,11 +171,18 @@ int main() {
       break;
   }
 
+  assert(ReadBoardFile("files/2.board").size() == 0);
+
   /*
     A* motion planning search algorithm
   */
+  auto board = ReadBoardFile("files/1.board");
+  DisplayBoard(board);
+
   int start [2] = {0, 0};
   int goal [2] = {4, 5};
-  auto solution = Search(contents, start, goal);
+  
+  auto solution = Search(board, start, goal);
+
   DisplayBoard(solution);
 }

@@ -84,6 +84,7 @@ string TileToString(const TileState& tile) {
     switch (tile) {
         case TileState::Blocked: return "⛰️";
         case TileState::Closed: return "X";
+        case TileState::Path: return "P";
         default: return "0"; // TileState::Free
     }
 }
