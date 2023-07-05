@@ -12,7 +12,8 @@
 #include <cassert>
 
 #include "functions.h"
-#include "enums.h"
+#include "types.h"
+#include "planning.h"
 
 using std::cout;
 using std::string;
@@ -173,4 +174,12 @@ int main() {
     case Direction::kRight : cout << "Going right!" << "\n";
       break;
   }
+
+  /*
+    A* motion planning search algorithm
+  */
+  int start [2] = {0, 0};
+  int goal [2] = {4, 5};
+  auto solution = Search(contents, start, goal);
+  DisplayBoard(solution);
 }

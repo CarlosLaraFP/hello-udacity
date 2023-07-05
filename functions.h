@@ -28,7 +28,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "enums.h"
+#include "types.h"
 
 using std::cout;
 using std::vector;
@@ -83,6 +83,7 @@ vector<vector<TileState>> ReadBoardFile(const string& file_path) {
 string TileToString(const TileState& tile) {
     switch (tile) {
         case TileState::Blocked: return "⛰️";
+        case TileState::Closed: return "X";
         default: return "0"; // TileState::Free
     }
 }
