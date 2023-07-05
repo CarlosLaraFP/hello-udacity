@@ -174,17 +174,6 @@ int main() {
       break;
   }
 
-  int k;
-  std::cout << "Enter an integer value for k: ";
-  std::cin >> k;
-  const int p = k * 2;  // "p can only be evaluated at run time."
-                        // "But I promise not to change it after it is initialized."
-  
-  constexpr int n = 3;  // "n, in contrast, can be evaluated at compile time."
-  
-  std::cout << "p = " << p << "\n";
-  std::cout << "n = " << n << "\n";
-
   assert(ReadBoardFile("files/2.board").size() == 0);
 
   /*

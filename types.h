@@ -5,7 +5,9 @@ enum class TileState {
     Free, 
     Blocked,
     Closed,
-    Path
+    Path,
+    Start,
+    Finish
 };
 
 struct Coordinate {

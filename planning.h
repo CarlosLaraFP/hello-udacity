@@ -23,7 +23,15 @@ using std::sort;
   Helper functions
 */
 
-int Heuristic(const Coordinate& a, const Coordinate& b) {
+// directional deltas
+const int delta [4][2] = {
+  {-1, 0}, 
+  {0, -1}, 
+  {1, 0}, 
+  {0, 1}
+};
+
+int Distance(const Coordinate& a, const Coordinate& b) {
   /*
     The parameters represent two pairs of 2D coordinates.
     Returns an int which is the Manhattan Distance from one coordinate to the other:
@@ -63,19 +71,15 @@ void CellSort(vector<Node>* v) {
 bool CheckValidCell(const Coordinate& c, const vector<vector<TileState>>& grid) {
     auto valid_row = c.x >= 0 && c.x < grid.size();
     auto valid_column = c.y >= 0 && c.y < grid[0].size();
-    auto valid_tile = grid[c.x][c.y] == TileState::Free;
-    return valid_row && valid_column && valid_tile;
+    // if out of bounds, buffer overflow => segfault
+    if (valid_row && valid_column) {
+      return grid[c.x][c.y] == TileState::Free;
+    }
+    return false;
 }
 
-void ExpandNeighbors(const Node& current_node, vector<Node>& open_nodes, const vector<vector<TileState>>& grid, const Coordinate& goal) {
-  // directional deltas
-  const int delta [4][2] = {
-    {-1, 0}, 
-    {0, -1}, 
-    {1, 0}, 
-    {0, 1}
-  };
-
+void ExpandNeighbors(const Node& current_node, vector<Node>& open_nodes, vector<vector<TileState>>& grid, const Coordinate& goal) {
+  // Iterating through constant array defined at the top
   for (auto& d : delta) {
     auto current_coordinate = Coordinate {
       current_node.c.x + d[0], 
@@ -86,10 +90,10 @@ void ExpandNeighbors(const Node& current_node, vector<Node>& open_nodes, const v
       auto neighbor = Node {
         current_coordinate,
         current_node.g + 1,
-        Heuristic(current_coordinate, goal)
+        Distance(current_coordinate, goal)
       };
 
-      open_nodes.push_back(neighbor);
+      AddToOpen(neighbor, open_nodes, grid);
     }
   }
 }
@@ -98,7 +102,7 @@ vector<vector<TileState>> Search(vector<vector<TileState>>& grid, const Coordina
   /*
   */
   if (grid.empty()) {
-    cout << "No path found.\n";
+    cout << "Please provide a non-empty grid.\n";
     return grid;
   }
 
@@ -107,7 +111,7 @@ vector<vector<TileState>> Search(vector<vector<TileState>>& grid, const Coordina
   auto first_node = Node {
     start,
     0,
-    Heuristic(start, goal)
+    Distance(start, goal)
   };
 
   AddToOpen(first_node, open_nodes, grid);
@@ -118,17 +122,22 @@ vector<vector<TileState>> Search(vector<vector<TileState>>& grid, const Coordina
 
     // Get the last node because the vector with the smallest f value is closest to the goal
     Node closest = open_nodes.back();
+    // Since we copied the node into a separate variable, we remove the original one from the vector of open nodes
+    open_nodes.pop_back();
 
     // Mark the path for displaying it at the end
     grid[closest.c.x][closest.c.y] = TileState::Path;
 
-    if (Heuristic(closest.c, goal) == 0) {
+    if (Distance(closest.c, goal) == 0) {
+      grid[start.x][start.y] = TileState::Start;
+      grid[goal.x][goal.y] = TileState::Finish;
       return grid;
     }
 
     ExpandNeighbors(closest, open_nodes, grid, goal);
   }
 
+  cout << "No path found.\n";
   return grid;
 }
 

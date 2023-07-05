@@ -83,9 +83,11 @@ vector<vector<TileState>> ReadBoardFile(const string& file_path) {
 string TileToString(const TileState& tile) {
     switch (tile) {
         case TileState::Blocked: return "⛰️";
-        case TileState::Closed: return "X";
-        case TileState::Path: return "P";
-        default: return "0"; // TileState::Free
+        case TileState::Closed: return " X";
+        case TileState::Path: return "🚗";
+        case TileState::Start: return "🚦";
+        case TileState::Finish: return " 🏁";
+        default: return " 0"; // TileState::Free
     }
 }
 
