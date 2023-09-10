@@ -1,1 +1,1 @@
-# hello-udacity
+# C++ course from Udacity
