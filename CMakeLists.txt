@@ -4,4 +4,4 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(hello_udacity)
 
-add_executable(hello hello.cpp)
+add_executable(hello hello.cpp date.cpp)

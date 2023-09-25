@@ -129,6 +129,30 @@ hello/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hello.dir/build.make CMakeFiles/hello.dir/build
 .PHONY : hello/fast
 
+date.o: date.cpp.o
+.PHONY : date.o
+
+# target to build an object file
+date.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hello.dir/build.make CMakeFiles/hello.dir/date.cpp.o
+.PHONY : date.cpp.o
+
+date.i: date.cpp.i
+.PHONY : date.i
+
+# target to preprocess a source file
+date.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hello.dir/build.make CMakeFiles/hello.dir/date.cpp.i
+.PHONY : date.cpp.i
+
+date.s: date.cpp.s
+.PHONY : date.s
+
+# target to generate assembly for a file
+date.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hello.dir/build.make CMakeFiles/hello.dir/date.cpp.s
+.PHONY : date.cpp.s
+
 hello.o: hello.cpp.o
 .PHONY : hello.o
 
@@ -162,6 +186,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... hello"
+	@echo "... date.o"
+	@echo "... date.i"
+	@echo "... date.s"
 	@echo "... hello.o"
 	@echo "... hello.i"
 	@echo "... hello.s"

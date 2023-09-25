@@ -14,13 +14,14 @@
 #include "functions.h"
 #include "types.h"
 #include "planning.h"
+#include "date.hpp"
 
 using std::cout;
 using std::string;
 using std::vector;
 
 
-// g++ -std=c++17 hello.cpp -o hello
+// g++ -std=c++17 hello.cpp -o hello && ./hello
 /*
   When you compile a project with g++, g++ actually performs several distinct tasks:
 
@@ -205,4 +206,9 @@ int main() {
   auto solution = Search(board, start, goal);
 
   DisplayBoard(solution);
+
+  Date date{1, 12, 2000};
+  assert(date.Day() == 1);
+  assert(date.Month() <= 12);
+  assert(date.Year() == 2000);
 }

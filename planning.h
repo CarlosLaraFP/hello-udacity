@@ -118,6 +118,11 @@ vector<vector<TileState>> Search(vector<vector<TileState>>& grid, const Coordina
 
   while (!open_nodes.empty()) {
     // Sort vector<Node> by ascending f value (g + h)
+    /*
+      A C++ pointer is a variable that stores the memory address of an object in your program.
+      Each variable in a program stores its contents in the computer's memory, and each chunk of the memory has an address number. 
+      For a given variable, the memory address can be accessed using an ampersand in front of the variable.
+    */
     CellSort(&open_nodes);
 
     // Get the last node because the vector with the smallest f value is closest to the goal

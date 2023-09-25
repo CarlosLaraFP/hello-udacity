@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/Users/carloslara/VSCodeProjects/HelloUdacity/date.cpp" "CMakeFiles/hello.dir/date.cpp.o" "gcc" "CMakeFiles/hello.dir/date.cpp.o.d"
   "/Users/carloslara/VSCodeProjects/HelloUdacity/hello.cpp" "CMakeFiles/hello.dir/hello.cpp.o" "gcc" "CMakeFiles/hello.dir/hello.cpp.o.d"
   )
 

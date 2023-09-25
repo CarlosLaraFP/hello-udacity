@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/hello.dir/date.cpp.o"
+  "CMakeFiles/hello.dir/date.cpp.o.d"
   "CMakeFiles/hello.dir/hello.cpp.o"
   "CMakeFiles/hello.dir/hello.cpp.o.d"
   "hello"
