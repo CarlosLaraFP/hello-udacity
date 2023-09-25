@@ -1,6 +1,6 @@
-//#pragma once
-#ifndef DATE_H
-#define DATE_H
+#pragma once
+//#ifndef DATE_H
+//#define DATE_H
 
 #include <stdexcept>
 
@@ -25,4 +25,4 @@ private:
     void validateMonth(int month) const;
 };
 
-#endif // DATE_H
+//#endif // DATE_H
