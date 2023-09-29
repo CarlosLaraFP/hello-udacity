@@ -38,19 +38,17 @@ public:
     
     void setGrade(int value) {
         if (value < 0 || value > 12) throw std::invalid_argument("Grade must be between 0 and 12");
-        
         grade_ = value;
     }
     
     void setGpa(float value) {
         if (value < 0.0 || value > 4.0) throw std::invalid_argument("GPA must be between 0.0 and 4.0");
-        
         gpa_ = value;
     }
     
-    std::string Name() { return name_; }
-    int Grade() { return grade_; }
-    float GPA() { return gpa_; }
+    std::string Name() const noexcept { return name_; }
+    int Grade() const noexcept { return grade_; }
+    float GPA() const noexcept { return gpa_; }
 
 private:
     std::string name_;
