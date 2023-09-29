@@ -211,4 +211,16 @@ int main() {
   assert(date.Day() == 1);
   assert(date.Month() <= 12);
   assert(date.Year() == 2000);
+
+  Student student{"Albert", 9, 4.0};
+  assert(student.Name() == "Albert");
+  assert(student.Grade() == 9);
+  assert(student.GPA() == 4.0);
+  
+  try { 
+      student.setGrade(19); 
+  } 
+  catch (const std::invalid_argument& e) { 
+      std::cerr << "Caught an invalid_argument exception: " << e.what() << std::endl;
+  }
 }

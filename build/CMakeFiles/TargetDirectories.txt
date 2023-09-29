@@ -1,3 +1,0 @@
-/Users/carloslara/VSCodeProjects/HelloUdacity/build/CMakeFiles/hello.dir
-/Users/carloslara/VSCodeProjects/HelloUdacity/build/CMakeFiles/edit_cache.dir
-/Users/carloslara/VSCodeProjects/HelloUdacity/build/CMakeFiles/rebuild_cache.dir
