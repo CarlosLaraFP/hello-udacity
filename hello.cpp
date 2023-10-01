@@ -223,4 +223,7 @@ int main() {
   catch (const std::invalid_argument& e) { 
       std::cerr << "Caught an invalid_argument exception: " << e.what() << std::endl;
   }
+
+  Scooter scooter {4, "blue sky", true};
+  scooter.Print();
 }

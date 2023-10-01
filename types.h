@@ -56,4 +56,42 @@ private:
     float gpa_;
 };
 
+class Vehicle {
+public:
+    Vehicle(int wheels, const std::string& color, bool flies) : wheels_{wheels}, color_{color}, flies_{flies} {}
+    
+    virtual void Print() const
+    {
+        std::cout << "This " << color_ << " vehicle has " << wheels_ << " wheels!" << std::endl;
+    }
+    
+protected:
+    int wheels_;
+    std::string color_;
+    bool flies_;
+};
+
+class Car : public Vehicle {
+public:
+    bool sunroof {false};
+};
+
+class Bicycle : public Vehicle {
+public:
+    bool kickstand {true};
+};
+
+class Scooter : public Vehicle {
+public:
+    Scooter(int w, const std::string& c, bool f) : Vehicle(w, c, f) {};
+    
+    void Print() const override
+    {
+        Vehicle::Print();
+        
+        if (flies_) std::cout << "And it flies!" << std::endl;
+        else std::cout << "But it does not fly yet." << std::endl;
+    }
+};
+
 #endif // TYPES_H
