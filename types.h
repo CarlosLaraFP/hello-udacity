@@ -83,7 +83,7 @@ public:
     bool kickstand {true};
 };
 
-class Scooter : public Vehicle {
+class Scooter : private Vehicle {
 public:
     Scooter(int w, const std::string& c, bool f) : Vehicle(w, c, f) {};
     
