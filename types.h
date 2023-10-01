@@ -65,9 +65,11 @@ public:
         std::cout << "This " << color_ << " vehicle has " << wheels_ << " wheels!" << std::endl;
     }
     
-protected:
+private:
     int wheels_;
     std::string color_;
+
+protected:
     bool flies_;
 };
 
