@@ -226,4 +226,8 @@ int main() {
 
   Scooter scooter {4, "blue sky", true};
   scooter.Print();
+
+  Square square {4};
+  Rectangle rectangle {square};
+  assert(rectangle.Area() == 16); 
 }

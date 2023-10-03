@@ -96,4 +96,24 @@ public:
     }
 };
 
+class Square {
+public:
+    Square(int side) : side_{side} {};
+private:
+    int side_;
+    friend class Rectangle;
+};
+
+class Rectangle {
+public:
+    Rectangle(const Square& square) : width_{square.side_}, height_{square.side_} {}
+    
+    int Area() const noexcept {
+        return width_ * height_;
+    }
+private:
+    int width_;
+    int height_;
+};
+
 #endif // TYPES_H
