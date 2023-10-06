@@ -116,4 +116,22 @@ private:
     int height_;
 };
 
+class Point {
+public:
+    Point(float x, float y) : x_{x}, y_{y} {}
+    
+    Point operator+(const Point& point) { 
+        auto new_x = x_ + point.X();
+        auto new_y = y_ + point.Y();
+        return Point(new_x, new_y);
+    }
+    
+    float X() const noexcept { return x_; }
+    float Y() const noexcept { return y_; }
+    
+private:
+    float x_;
+    float y_;
+};
+
 #endif // TYPES_H
