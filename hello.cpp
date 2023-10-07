@@ -230,4 +230,12 @@ int main() {
   Square square {4};
   Rectangle rectangle {square};
   assert(rectangle.Area() == 16); 
+
+  Point p1(10, 5), p2(2, 4);
+  Point p3 = p1 + p2;
+  assert(p3.X() == p1.X() + p2.X());
+  assert(p3.Y() == p1.Y() + p2.Y());
+
+  assert(Max(10, 50) == 50);
+  assert(Max(5.7, 1.436246) == 5.7);
 }

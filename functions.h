@@ -156,4 +156,11 @@ T Sum(const vector<T>& elements) {
   They're part of what makes C++ a powerful language for high-performance programming.
 */
 
+template <typename T>
+const T& Max(const T& a, const T& b) {
+    static_assert(std::is_arithmetic<T>::value, "Max function generic type parameter must be of a numeric type.");
+
+    return a > b ? a : b;
+}
+
 #endif // FUNCTIONS_H
