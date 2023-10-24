@@ -150,10 +150,8 @@ T Sum(const vector<T>& elements) {
   They generate specific code for each type that's used as a template argument, just as if you had written separate functions or classes for each type.
 
   static_assert also does its work at compile time. If its condition is false, it causes a compile error; if the condition is true, it has no effect on the generated code. 
-  It does not produce any instructions that would slow down the program at runtime.
-
-  So you can use these features to make your code more flexible and safe, without worrying about a performance cost. 
-  They're part of what makes C++ a powerful language for high-performance programming.
+  It does not produce any instructions that would slow down the program at runtime. Therefore, you can use these features to make your code more flexible and safe, 
+  without worrying about a performance cost. They're part of what makes C++ a powerful language for high-performance programming.
 */
 
 template <typename T>

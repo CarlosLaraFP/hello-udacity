@@ -134,4 +134,56 @@ private:
     float y_;
 };
 
+class MyMovableClass
+{
+private:
+    int _size;
+    int* _data;
+
+public:
+    MyMovableClass(size_t size) // 0 : constructor
+    {
+        _size = size;
+        _data = new int[_size];
+        std::cout << "CREATING instance of MyMovableClass at " << this << " allocated with size = " << _size*sizeof(int)  << " bytes" << std::endl;
+    }
+
+    ~MyMovableClass() // 1 : destructor
+    {
+        std::cout << "DELETING instance of MyMovableClass at " << this << std::endl;
+        delete[] _data;
+    }
+    
+    MyMovableClass(MyMovableClass&& source) // 2 : move constructor
+    {
+        std::cout << "MOVING (constructor) instance " << &source << " to instance " << this << std::endl;
+        _data = source._data; // makes a copy of the pointer to the existing memory address
+        _size = source._size; // regular copy
+        source._data = nullptr; // ensures there is only 1 pointer in this new instance
+        source._size = 0; // ?
+        // source destructor is called at the end of this scope
+        // any references to source in the caller scope are now invalid
+    }
+    
+    MyMovableClass(const MyMovableClass& source) // 3 : copy constructor
+    {
+        _size = source._size;
+        _data = new int[_size];
+        *_data = *source._data;
+        std::cout << "COPYING content of instance " << &source << " to instance " << this << std::endl;
+    }
+    
+    MyMovableClass& operator=(const MyMovableClass& source) // 4 : copy assignment operator
+    {
+        std::cout << "ASSIGNING content of instance " << &source << " to instance " << this << std::endl;
+        if (this == &source)
+            return *this;
+        delete[] _data;
+        _size = source._size;
+        _data = new int[_size];
+        *_data = *source._data;
+        return *this;
+    }
+};
+
 #endif // TYPES_H
