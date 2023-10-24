@@ -159,7 +159,7 @@ public:
         std::cout << "MOVING (constructor) instance " << &source << " to instance " << this << std::endl;
         _data = source._data; // makes a copy of the pointer to the existing memory address
         _size = source._size; // regular copy
-        source._data = nullptr; // ensures there is only 1 pointer in this new instance
+        source._data = nullptr; // ensures there is only 1 pointer in this new instance and prevents the destructor from deleting the no longer owned data
         source._size = 0; // ?
         // source destructor is called at the end of this scope
         // any references to source in the caller scope are now invalid
@@ -184,6 +184,26 @@ public:
         *_data = *source._data;
         return *this;
     }
+
+    MyMovableClass& operator=(MyMovableClass&& source) // 5 : move assignment operator
+    {
+        std::cout << "MOVING (assign) instance " << &source << " to instance " << this << std::endl;
+        
+        if (this == &source)
+            return *this;
+
+        delete[] _data;
+
+        _data = source._data;
+        _size = source._size;
+
+        source._data = nullptr;
+        source._size = 0;
+
+        return *this;
+    }
+
+    int& operator*() { return *_data; } // overload dereferencing operator
 };
 
 #endif // TYPES_H
