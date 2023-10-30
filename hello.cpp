@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include <cassert>
+#include <thread>
 
 #include "functions.h"
 #include "types.h"
@@ -21,7 +22,7 @@ using std::string;
 using std::vector;
 
 
-// g++ -std=c++17 hello.cpp -o hello && ./hello
+// g++ -std=c++17 -pthread hello.cpp -o hello && ./hello
 /*
   When you compile a project with g++, g++ actually performs several distinct tasks:
 
@@ -240,5 +241,18 @@ int main() {
   assert(Max(5.7, 1.436246) == 5.7);
 
   char str1[] = "UDACITY";
-  printf("%s", str1);
+  printf("%s\n", str1);
+
+  // create thread
+  std::thread backgroundThread {[]() {
+    std::this_thread::sleep_for(std::chrono::milliseconds(100)); // simulate work
+    std::cout << "Finished work in background thread\n"; 
+  }};
+
+  // do something in main()
+  std::this_thread::sleep_for(std::chrono::milliseconds(50)); // simulate work
+  std::cout << "Finished work in main\n";
+
+  // wait for thread to finish
+  backgroundThread.join();
 }
