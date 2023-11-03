@@ -11,6 +11,8 @@
 #include <vector>
 #include <cassert>
 #include <thread>
+#include <future>
+#include <mutex>
 
 #include "functions.h"
 #include "types.h"
@@ -255,4 +257,37 @@ int main() {
 
   // wait for thread to finish
   backgroundThread.join();
+
+  // create monitor object as a shared pointer to enable access by multiple threads
+  auto queue = std::make_shared<MessageQueue<Automobile>>();
+
+  std::cout << "Spawning threads..." << std::endl;
+  
+  std::vector<std::future<void>> futures;
+  
+  for (int i = 0; i < 10; ++i)
+  {
+      // create a new Vehicle instance and move it into the queue
+      Automobile v(i);
+      futures.emplace_back(std::async(std::launch::async, &MessageQueue<Automobile>::pushBack, queue, std::move(v)));
+  }
+
+  std::cout << "Collecting results..." << std::endl;
+  
+  int vehicleCount = 0;
+
+  while (vehicleCount < 10)
+  {
+      // popBack wakes up when a new element is available in the queue
+      Automobile v = queue->popBack();
+      std::cout << "   Message #" << v.getID() << " has been removed from the queue" << std::endl;
+      ++vehicleCount;
+  }
+
+  for (auto& future : futures)
+  {
+      future.wait();
+  }
+
+  std::cout << "Finished!" << std::endl;
 }
